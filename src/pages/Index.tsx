@@ -244,7 +244,15 @@ const Index = () => {
                 {/* Contact Numbers */}
                 <div className="text-center mb-8">
                   <h3 className="font-playfair text-xl md:text-2xl text-foreground mb-4">CONTACT</h3>
-                  <p className="text-foreground text-lg md:text-xl">9767343667 / 9767818006</p>
+                  <div className="flex items-center justify-center gap-2 text-lg md:text-xl">
+                    <a href="tel:+919767343667" className="text-primary hover:text-primary/80 transition-colors underline">
+                      9767343667
+                    </a>
+                    <span className="text-foreground">/</span>
+                    <a href="tel:+919767818006" className="text-primary hover:text-primary/80 transition-colors underline">
+                      9767818006
+                    </a>
+                  </div>
                 </div>
 
                 {/* Footer */}
