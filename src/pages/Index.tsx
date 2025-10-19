@@ -37,6 +37,9 @@ const scheduleEvents = [
 const Index = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(true);
+
   useEffect(() => {
     // Start fade out after 2.5 seconds
     const fadeTimer = setTimeout(() => {
@@ -48,20 +51,23 @@ const Index = () => {
       setShowLoader(false);
     }, 3500);
 
-    // Auto-play music when component loads
-    const audio = document.getElementById('background-music') as HTMLAudioElement;
-    if (audio) {
-      audio.play().catch(() => {
-        // Handle autoplay restrictions
-        console.log('Autoplay prevented by browser');
-      });
-    }
-
     return () => {
       clearTimeout(fadeTimer);
       clearTimeout(hideTimer);
     };
   }, []);
+
+  const startMusic = () => {
+    const audio = document.getElementById('background-music') as HTMLAudioElement;
+    if (audio) {
+      audio.play().then(() => {
+        setIsPlaying(true);
+        setShowPlayButton(false);
+      }).catch(() => {
+        console.log('Audio play failed');
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
@@ -69,15 +75,24 @@ const Index = () => {
       <audio
         id="background-music"
         loop
-        autoPlay
         preload="auto"
         className="hidden"
-        volume={0.3}
       >
         <source src="/audio/wedding-song.mp3" type="audio/mpeg" />
         <source src="/audio/wedding-song.wav" type="audio/wav" />
         <source src="/audio/wedding-song.ogg" type="audio/ogg" />
       </audio>
+      
+      {/* Music Play Button */}
+      {showPlayButton && (
+        <button
+          onClick={startMusic}
+          className="fixed top-4 right-4 z-50 bg-primary text-primary-foreground p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 animate-bounce"
+          aria-label="Play wedding music"
+        >
+          <Music className="w-6 h-6" />
+        </button>
+      )}
       {/* Loader Screen */}
       {showLoader && (
         <div
@@ -212,7 +227,7 @@ const Index = () => {
 
                 {/* Walima Details */}
                 <div className="text-center mb-8">
-                  <h3 className="font-playfair text-xl md:text-2xl text-foreground mb-4">WALIMA RECEPTION</h3>
+                  <h3 className="font-playfair text-xl md:text-2xl text-foreground mb-4">RECEPTION</h3>
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <Calendar className="w-5 h-5 text-primary" />
                     <p className="text-foreground text-lg md:text-xl">Monday, 3rd November 2025</p>
@@ -225,7 +240,7 @@ const Index = () => {
 
                 {/* Walima Venue */}
                 <div className="text-center mb-8">
-                  <h3 className="font-playfair text-xl md:text-2xl text-foreground mb-4">WALIMA VENUE</h3>
+                  <h3 className="font-playfair text-xl md:text-2xl text-foreground mb-4">RECEPTION VENUE</h3>
                   <div className="flex items-start justify-center gap-1">
                     <MapPin className="w-5 h-5 text-primary mt-1" />
                     <div className="text-foreground text-center">
