@@ -2,6 +2,10 @@
 
 A beautiful, animated wedding invitation card built with React, TypeScript, and Tailwind CSS.
 
+## 🌐 Live Demo
+
+**[View Live Invitation](https://sahil-wedds-happily.vercel.app/)**
+
 ## Features
 
 - Elegant invitation card design
