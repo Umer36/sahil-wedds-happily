@@ -219,7 +219,7 @@ const Index = () => {
                   </div>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Clock className="w-5 h-5 text-primary" />
-                    <p className="text-foreground text-lg md:text-xl">7 p.m. Onwards</p>
+                    <p className="text-foreground text-lg md:text-xl">12 pm. Onwards</p>
                   </div>
                 </div>
 
